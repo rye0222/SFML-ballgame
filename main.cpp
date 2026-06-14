@@ -2,21 +2,21 @@
 #include<vector>
 #include<cstdlib>
 #include<ctime>
-#include<string> // ĞÂÔö
+#include<string> 
 using namespace std;
 using namespace sf;
-//Ëæ»úĞ¡ÇòÉú³É
+//éšæœºå°çƒç”Ÿæˆ
 void generateRandomBall(vector<CircleShape>& balls, float maxX, float maxY)
 {
-    float radius = static_cast<float>(rand() % 15 + 5); // Ëæ»ú°ë¾¶
-    float x =static_cast<float>(rand())/static_cast<float>(RAND_MAX); // Ô²ĞÄX
-    float y = static_cast<float>(rand())/static_cast<float>(RAND_MAX); // Ô²ĞÄY
-    float centerX = radius+x*(maxX-2*radius); // È·±£Ô²ĞÄÔÚ±ß½çÄÚ
-    float centerY = radius + y * (maxY - 2 * radius); // È·±£Ô²ĞÄÔÚ±ß½çÄÚ	
+    float radius = static_cast<float>(rand() % 15 + 5); // éšæœºåŠå¾„
+    float x =static_cast<float>(rand())/static_cast<float>(RAND_MAX); // åœ†å¿ƒX
+    float y = static_cast<float>(rand())/static_cast<float>(RAND_MAX); // åœ†å¿ƒY
+    float centerX = radius+x*(maxX-2*radius); // ç¡®ä¿åœ†å¿ƒåœ¨è¾¹ç•Œå†…
+    float centerY = radius + y * (maxY - 2 * radius); // ç¡®ä¿åœ†å¿ƒåœ¨è¾¹ç•Œå†…	
     CircleShape ball(radius);
-    ball.setFillColor(Color(rand() % 256, rand() % 256, rand() % 256)); // Ëæ»úÑÕÉ«
-    ball.setOrigin(radius, radius); // ÉèÖÃÔ­µãÎªÔ²ĞÄ
-    ball.setPosition(centerX, centerY);         // Ô²ĞÄ×ø±ê
+    ball.setFillColor(Color(rand() % 256, rand() % 256, rand() % 256)); // éšæœºé¢œè‰²
+    ball.setOrigin(radius, radius); // è®¾ç½®åŸç‚¹ä¸ºåœ†å¿ƒ
+    ball.setPosition(centerX, centerY);         // åœ†å¿ƒåæ ‡
     balls.emplace_back(ball);
 }
 
@@ -27,16 +27,16 @@ int main()
     RenderWindow window(desktop, "", Style::Fullscreen);
     window.setFramerateLimit(60);
     const float speed = 200.f;
-    bool isAlive = true; // AIĞ¡ÇòÊÇ·ñ´æ»î
+    bool isAlive = true; // AIå°çƒæ˜¯å¦å­˜æ´»
     class Ball
     {
     public:
-        float x, y;         // ¶¨ÒåĞ¡Çò
+        float x, y;         // å®šä¹‰å°çƒ
         float radius;
         Color color;
         CircleShape shape;
 
-        // Ball ÀàµÄ¹¹Ôìº¯Êı
+        // Ball ç±»çš„æ„é€ å‡½æ•°
         Ball(float x, float y, float radius, Color color)
             : x(x), y(y), radius(radius), color(color)
         {
@@ -46,16 +46,15 @@ int main()
         }
     };
 
-    vector<Ball>balls;   //Íæ¼ÒĞ¡Çò
-    vector<CircleShape> smallballs;   //Ëæ»úĞ¡Çò
-    balls.emplace_back(100.f, 200.f, 50.f, Color::Red);  // Ğ¡Çò1
-    balls.emplace_back(500.f, 300.f, 50.f, Color::Blue); // Ğ¡Çò2
+    vector<Ball>balls;   //ç©å®¶å°çƒ
+    vector<CircleShape> smallballs;   //éšæœºå°çƒ
+    balls.emplace_back(100.f, 200.f, 50.f, Color::Red);  // å°çƒ1
+    balls.emplace_back(500.f, 300.f, 50.f, Color::Blue); // å°çƒ2
 
-    // ----------- ĞÂÔö£ºµÃ·ÖÏµÍ³Ïà¹Ø±äÁ¿ -----------
     int redScore = 0;
     int blueScore = 0;
     Font font;
-    if (!font.loadFromFile("C:\\Windows\\Fonts\\arial.ttf")) // Â·¾¶¿É¸ù¾İÊµ¼ÊÇé¿öµ÷Õû
+    if (!font.loadFromFile("C:\\Windows\\Fonts\\arial.ttf")) // è·¯å¾„å¯æ ¹æ®å®é™…æƒ…å†µè°ƒæ•´
         return -1;
     Text redText, blueText;
     redText.setFont(font);
@@ -67,7 +66,7 @@ int main()
     blueText.setCharacterSize(36);
     blueText.setFillColor(Color::Blue);
     blueText.setPosition(static_cast<float>(desktop.width) - 200.f, 20.f);
-    // -------- ĞÂÔö£ºGame Over ÎÄ±¾³õÊ¼»¯ --------
+    
     Text gameOverText, winnerText;
     gameOverText.setFont(font);
     gameOverText.setCharacterSize(96);
@@ -78,9 +77,8 @@ int main()
     winnerText.setCharacterSize(48);
     winnerText.setFillColor(Color::Yellow);
     winnerText.setStyle(Text::Bold);
-    // ----------------------------------------
-    //*****************AIĞ¡Çò*********************
 
+    //AIå°çƒ
     class AIBall
     {
     public:
@@ -89,7 +87,7 @@ int main()
         Color color;
         CircleShape shape;
 
-        // ÕıÈ·µÄ¹¹Ôìº¯Êı
+    
         AIBall(float x, float y, float radius, Color color)
             : x(x), y(y), radius(radius), color(color)
         {
@@ -99,11 +97,11 @@ int main()
             shape.setPosition(x, y);
         }
     };
-    // ³õÊ¼»¯AIĞ¡Çò£¬°ë¾¶20£¬ÂÌÉ«
+    // åˆå§‹åŒ–AIå°çƒ
     AIBall aiBall(300.f, 400.f, 20.f, Color::Green);
 
-    Clock clock; // ÓÃÓÚ¼ÆËãÊ±¼ä²î
-    const float spawnInterval = 0.5f; // Ëæ»úĞ¡ÇòÉú³É¼ä¸ô
+    Clock clock; // ç”¨äºè®¡ç®—æ—¶é—´å·®
+    const float spawnInterval = 0.5f; // éšæœºå°çƒç”Ÿæˆé—´éš”
     const int ballcount = 200;
     for (int i = 0;i < ballcount;++i)
     {
@@ -111,60 +109,60 @@ int main()
     }
     while (window.isOpen())
     {
-        float deltatime = clock.restart().asSeconds(); // ¼ÆËãÊ±¼ä²î
+        float deltatime = clock.restart().asSeconds(); // è®¡ç®—æ—¶é—´å·®
         Event e;
         while (window.pollEvent(e))
         {
-            if (e.type == Event::Closed || e.key.code == Keyboard::Escape)  // ´¦ÀíÍæ¼ÒÊäÈë
+            if (e.type == Event::Closed || e.key.code == Keyboard::Escape)  // å¤„ç†ç©å®¶è¾“å…¥
                 window.close();
         }
 
-        // ¿ØÖÆĞ¡Çò1ÒÆ¶¯
+        // æ§åˆ¶å°çƒ1ç§»åŠ¨
         if (Keyboard::isKeyPressed(Keyboard::W))
         {
-            balls[0].y -= speed * deltatime; // Ğ¡Çò1ÉÏÒÆ
+            balls[0].y -= speed * deltatime; // å°çƒ1ä¸Šç§»
         }
         if (Keyboard::isKeyPressed(Keyboard::A))
         {
-            balls[0].x -= speed * deltatime; // Ğ¡Çò1×óÒÆ
+            balls[0].x -= speed * deltatime; // å°çƒ1å·¦ç§»
         }
         if (Keyboard::isKeyPressed(Keyboard::S))
         {
-            balls[0].y += speed * deltatime; // Ğ¡Çò1ÏÂÒÆ
+            balls[0].y += speed * deltatime; // å°çƒ1ä¸‹ç§»
         }
         if (Keyboard::isKeyPressed(Keyboard::D))
         {
-            balls[0].x += speed * deltatime; // Ğ¡Çò1ÓÒÒÆ
+            balls[0].x += speed * deltatime; // å°çƒ1å³ç§»
         }
 
-        // ¿ØÖÆĞ¡Çò2ÒÆ¶¯
+        // æ§åˆ¶å°çƒ2ç§»åŠ¨
         if (Keyboard::isKeyPressed(Keyboard::Up))
         {
-            balls[1].y -= speed * deltatime; // Ğ¡Çò2ÉÏÒÆ
+            balls[1].y -= speed * deltatime; // å°çƒ2ä¸Šç§»
         }
         if (Keyboard::isKeyPressed(Keyboard::Left))
         {
-            balls[1].x -= speed * deltatime; // Ğ¡Çò2×óÒÆ
+            balls[1].x -= speed * deltatime; // å°çƒ2å·¦ç§»
         }
         if (Keyboard::isKeyPressed(Keyboard::Down))
         {
-            balls[1].y += speed * deltatime; // Ğ¡Çò2ÏÂÒÆ
+            balls[1].y += speed * deltatime; // å°çƒ2ä¸‹ç§»
         }
         if (Keyboard::isKeyPressed(Keyboard::Right))
         {
-            balls[1].x += speed * deltatime; // Ğ¡Çò2ÓÒÒÆ
+            balls[1].x += speed * deltatime; // å°çƒ2å³ç§»
         }
 
-        // ¸üĞÂĞ¡ÇòÎ»ÖÃ
+        // æ›´æ–°å°çƒä½ç½®
         for (auto& ball : balls)
         {
             ball.shape.setPosition(ball.x, ball.y);
         }
 
-        // Íæ¼ÒĞ¡Çò±ß½ç¼ì²â£¨Ìæ»»Ô­ÓĞµÄ±ß½ç¼ì²â´úÂë¿é£©
+        // ç©å®¶å°çƒè¾¹ç•Œæ£€æµ‹ï¼ˆæ›¿æ¢åŸæœ‰çš„è¾¹ç•Œæ£€æµ‹ä»£ç å—ï¼‰
         for (auto& ball : balls)
         {
-            // ÒòÎª setOrigin ÉèÖÃÎª°ë¾¶£¬Î»ÖÃ´ú±íÔ²ĞÄ£¬ËùÒÔ±ß½çÎª [radius, width-radius] ºÍ [radius, height-radius]
+            // å› ä¸º setOrigin è®¾ç½®ä¸ºåŠå¾„ï¼Œä½ç½®ä»£è¡¨åœ†å¿ƒï¼Œæ‰€ä»¥è¾¹ç•Œä¸º [radius, width-radius] å’Œ [radius, height-radius]
             if (ball.x < ball.radius)
                 ball.x = ball.radius;
             if (ball.y < ball.radius)
@@ -176,7 +174,7 @@ int main()
             ball.shape.setPosition(ball.x, ball.y);
         }
 
-        // Íæ¼ÒĞ¡ÇòÖ®¼äµÄÅö×²¼ì²â
+        // ç©å®¶å°çƒä¹‹é—´çš„ç¢°æ’æ£€æµ‹
         if (balls.size() >= 2)
         {
             float dx = balls[0].x - balls[1].x;
@@ -185,7 +183,7 @@ int main()
             float minDist = balls[0].radius + balls[1].radius;
             if (distance < minDist)
             {
-                // ¼òµ¥·ÖÀë´¦Àí£º½«Á½¸öÇòÍÆ¿ªµ½²»ÖØµş
+                // ç®€å•åˆ†ç¦»å¤„ç†ï¼šå°†ä¸¤ä¸ªçƒæ¨å¼€åˆ°ä¸é‡å 
                 float overlap = 0.5f * (minDist - distance);
                 float nx = dx / distance;
                 float ny = dy / distance;
@@ -198,16 +196,16 @@ int main()
             }
         }
 
-        // ----------- ĞÂÔö£º´óÇòÍÌÊÉĞ¡ÇòºÍµÃ·Ö -----------
+        //å¤§çƒåå™¬å°çƒå’Œå¾—åˆ† 
         for (int player = 0; player < 2; ++player)
         {
             auto it = smallballs.begin();
             while (it != smallballs.end())
             {
-                // Íæ¼ÒÇòÔ²ĞÄ
-                float bx = balls[player].x;           //bxºÍbyÊÇÍæ¼ÒĞ¡ÇòµÄÔ²ĞÄ×ø±ê
+                // ç©å®¶çƒåœ†å¿ƒ
+                float bx = balls[player].x;           //bxå’Œbyæ˜¯ç©å®¶å°çƒçš„åœ†å¿ƒåæ ‡
                 float by = balls[player].y;
-                // Ğ¡ÇòÔ²ĞÄ
+                // å°çƒåœ†å¿ƒ
                 float sx = it->getPosition().x;
                 float sy = it->getPosition().y;
                 float sr = it->getRadius();
@@ -218,12 +216,12 @@ int main()
 
                 if (dist < balls[player].radius + sr && balls[player].radius>sr)
                 {
-                    // ÍÌÊÉĞ¡Çò
+                    // åå™¬å°çƒ
                     if (player == 0)
                         ++redScore;
                     else
                         ++blueScore;
-                    // Ôö´óÍæ¼ÒÇòÌå»ı
+                    // å¢å¤§ç©å®¶çƒä½“ç§¯
                     balls[player].radius += sr * 0.15f;
                     balls[player].shape.setRadius(balls[player].radius);
                     balls[player].shape.setOrigin(balls[player].radius, balls[player].radius);
@@ -237,9 +235,9 @@ int main()
         }
         if (isAlive)
         {
-            // ÌÓÀëÍæ¼Ò
+            // é€ƒç¦»ç©å®¶
             bool escaping = false;
-            float escapeDistx = 0.f; // ÌÓÀë¾àÀëãĞÖµ
+            float escapeDistx = 0.f; // é€ƒç¦»è·ç¦»é˜ˆå€¼
             float escapeDisty = 0.f;
             for (int i = 0; i < 2; ++i)
             {
@@ -256,10 +254,10 @@ int main()
                     }
                 }
             }
-            // Èç¹ûÔÚÌÓÅÜ×´Ì¬£¬¾Í°´µş¼ÓºóµÄ·½ÏòÒÆ¶¯
+            // å¦‚æœåœ¨é€ƒè·‘çŠ¶æ€ï¼Œå°±æŒ‰å åŠ åçš„æ–¹å‘ç§»åŠ¨
             if (escaping)
             {
-                // ÏÈ¹éÒ»»¯·½ÏòÏòÁ¿£¬±ÜÃâµş¼ÓºóËÙ¶È±ä¿ì
+                // å…ˆå½’ä¸€åŒ–æ–¹å‘å‘é‡ï¼Œé¿å…å åŠ åé€Ÿåº¦å˜å¿«
                 float len = sqrt(escapeDistx * escapeDistx + escapeDisty * escapeDisty);
                 if (len > 0.01f)
                 {
@@ -267,18 +265,18 @@ int main()
                     escapeDisty /= len;
                 }
 
-                // ÌÓÅÜËÙ¶È¿ÉÒÔ±ÈÆ½Ê±¿ìÒ»µã£¬±ÈÈç 150
+                // é€ƒè·‘é€Ÿåº¦å¯ä»¥æ¯”å¹³æ—¶å¿«ä¸€ç‚¹
                 aiBall.x += escapeDistx * 150.f * deltatime;
                 aiBall.y += escapeDisty * 150.f * deltatime;
             }
-            // ×Ô¶¯³Ô×î½üĞ¡Çò£¨Ö»ÓĞ²»ÔÚÌÓÅÜÊ±²ÅÖ´ĞĞ£©
+            // è‡ªåŠ¨åƒæœ€è¿‘å°çƒï¼ˆåªæœ‰ä¸åœ¨é€ƒè·‘æ—¶æ‰æ‰§è¡Œï¼‰
             else if (!smallballs.empty())
             {
                 float minDist = 1e9f;
                 size_t minIdx = 0;
-                // ... ÄãÔ­À´µÄÕÒÊ³ÎïÂß¼­ ...
+                
             }
-            // ×Ô¶¯³Ô×î½üĞ¡Çò
+            // è‡ªåŠ¨åƒæœ€è¿‘å°çƒ
             if (!escaping && !smallballs.empty())
             {
                 float minDist = 1e9f;
@@ -309,7 +307,7 @@ int main()
             }
         }
 
-        // ±ß½ç¼ì²â
+        // è¾¹ç•Œæ£€æµ‹
         if (aiBall.x < 0)
             aiBall.x = 0;
         if (aiBall.y < 0)
@@ -320,7 +318,7 @@ int main()
             aiBall.y = desktop.height - 2 * aiBall.radius;
         aiBall.shape.setPosition(aiBall.x, aiBall.y);
 
-        // AIÇòÍÌÊÉĞ¡Çò
+        // AIçƒåå™¬å°çƒ
         auto it = smallballs.begin();
         while (it != smallballs.end())
         {
@@ -343,7 +341,7 @@ int main()
             }
         }
 
-        // Íæ¼Ò³ÔAIÇò
+        // ç©å®¶åƒAIçƒ
         for (int player = 0; player < 2; ++player)
         {
             float dx = balls[player].x - aiBall.x;
@@ -352,35 +350,35 @@ int main()
 
             if (dist < balls[player].radius + aiBall.radius && balls[player].radius > aiBall.radius)
             {
-                // ¸øÓè·ÖÊı²¢Ö»ÔÚÊ×´ÎÍÌÊÉÊ±Ö´ĞĞÒ»´Î
+                // ç»™äºˆåˆ†æ•°å¹¶åªåœ¨é¦–æ¬¡åå™¬æ—¶æ‰§è¡Œä¸€æ¬¡
                 if (player == 0)
                     redScore += static_cast<int>(aiBall.radius);
                 else
                     blueScore += static_cast<int>(aiBall.radius);
 
-                // Ôö´óÍæ¼ÒÇòÌå»ı£¨Ò»´ÎĞÔ£©
+                // å¢å¤§ç©å®¶çƒä½“ç§¯ï¼ˆä¸€æ¬¡æ€§ï¼‰
                 balls[player].radius += aiBall.radius * 0.2f;
                 balls[player].shape.setRadius(balls[player].radius);
                 balls[player].shape.setOrigin(balls[player].radius, balls[player].radius);
 
-                // ±ê¼Ç AI ÒÑ±»³Ôµô²¢Á¢¼´ÒÆ³ıÆä½»»¥/ÏÔÊ¾ÊôĞÔ£¬·ÀÖ¹ÖØ¸´´¥·¢
+                // æ ‡è®° AI å·²è¢«åƒæ‰å¹¶ç«‹å³ç§»é™¤å…¶äº¤äº’/æ˜¾ç¤ºå±æ€§ï¼Œé˜²æ­¢é‡å¤è§¦å‘
                 isAlive = false;
                 aiBall.radius = 0.f;
                 aiBall.shape.setRadius(0.f);
                 aiBall.shape.setOrigin(0.f, 0.f);
-                aiBall.shape.setPosition(-10000.f, -10000.f); // ÒÆ³ö¿ÉÊÓ/Åö×²ÇøÓò
+                aiBall.shape.setPosition(-10000.f, -10000.f); // ç§»å‡ºå¯è§†/ç¢°æ’åŒºåŸŸ
 
                 break;
             }
         }
 
-        // ----------- ĞÂÔö£º¸üĞÂµÃ·ÖÎÄ±¾ -----------
+        
         redText.setString("Red: " + to_string(redScore));
         blueText.setString("Blue: " + to_string(blueScore));
         // ----------------------------------------
 
-        // »æÖÆĞ¡Çò
-        window.clear(Color::Black); // 1. ÏÈÇåÆÁ
+        // ç»˜åˆ¶å°çƒ
+        window.clear(Color::Black); // 1. å…ˆæ¸…å±
 
         for (const auto& ball : balls)
         {
@@ -398,14 +396,14 @@ int main()
         }
         if (smallballs.empty())
         {
-            // ¾ÓÖĞÏÔÊ¾ "GAME OVER"
+            // å±…ä¸­æ˜¾ç¤º "GAME OVER"
             gameOverText.setString("GAME OVER");
             FloatRect gb = gameOverText.getLocalBounds();
             gameOverText.setOrigin(gb.left + gb.width / 2.f, gb.top + gb.height / 2.f);
             gameOverText.setPosition(static_cast<float>(desktop.width) / 2.f, static_cast<float>(desktop.height) / 2.f - 40.f);
             window.draw(gameOverText);
 
-            // ¼ÆËã²¢ÏÔÊ¾»ñÊ¤Õß
+            // è®¡ç®—å¹¶æ˜¾ç¤ºè·èƒœè€…
             string winner;
             if (redScore > blueScore)
                 winner = "RED WINS: " + to_string(redScore) + " - " + to_string(blueScore);
@@ -420,7 +418,7 @@ int main()
             winnerText.setPosition(static_cast<float>(desktop.width) / 2.f, static_cast<float>(desktop.height) / 2.f + 40.f);
             window.draw(winnerText);
         }
-        window.display(); // 2. ×îºóÏÔÊ¾
+        window.display(); // 2. æœ€åæ˜¾ç¤º
     }
 
     return 0;
